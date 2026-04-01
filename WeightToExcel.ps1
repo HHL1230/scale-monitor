@@ -55,7 +55,7 @@ function Show-SetupWizard {
     $v = Read-Host "  Stop Bits (One/Two) [$($defaults.stopBits)]"
     $cfg.stopBits = if ($v) { $v } else { $defaults.stopBits }
 
-    $v = Read-Host "  下一格游標移動方向 (down/right) [$($defaults.moveDirection)]"
+    $v = Read-Host "  下一格游標移動方向 (up/down/left/right/downleft/downright) [$($defaults.moveDirection)]"
     $cfg.moveDirection = if ($v) { $v } else { $defaults.moveDirection }
 
     $v = Read-Host "  閒置斷線時間 (min) [$($defaults.idleTimeoutMinutes)]"
@@ -187,11 +187,13 @@ try {
                         if ($null -ne $activeCell) {
                             $activeCell.Value2 = [double]$value
                             # 根據設定的方向移動
-                            if ($cfg.moveDirection -eq "right") {
-                                $activeCell.Offset(0, 1).Select() | Out-Null
-                            }
-                            else {
-                                $activeCell.Offset(1, 0).Select() | Out-Null
+                            switch ($cfg.moveDirection) {
+                                "up" { $activeCell.Offset(-1, 0).Select() | Out-Null }
+                                "left" { $activeCell.Offset(0, -1).Select() | Out-Null }
+                                "right" { $activeCell.Offset(0, 1).Select() | Out-Null }
+                                "downleft" { $activeCell.Offset(1, -1).Select() | Out-Null }
+                                "downright" { $activeCell.Offset(1, 1).Select() | Out-Null }
+                                default { $activeCell.Offset(1, 0).Select() | Out-Null }
                             }
                         }
                         else {
