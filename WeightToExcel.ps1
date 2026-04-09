@@ -16,7 +16,7 @@ $defaults = @{
 
     stopBits           = "One"
     moveDirection      = "down"
-    idleTimeoutMinutes = 30
+    idleTimeoutMinutes = 10
 }
 
 # === 設定精靈 ===
@@ -126,6 +126,17 @@ function Get-ExcelInstance {
     }
 }
 
+# === 取得當前主控台連線的 SessionID API ===
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class WTS {
+    [DllImport("kernel32.dll")]
+    public static extern uint WTSGetActiveConsoleSessionId();
+}
+"@
+$mySessionId = [System.Diagnostics.Process]::GetCurrentProcess().SessionId
+
 # === 初始化 ===
 $host.UI.RawUI.WindowTitle = "Scale Monitor [$($cfg.comPort)]"
 $counter = 0
@@ -168,6 +179,14 @@ try {
         if ((Get-Date) - $lastActionTime -gt [TimeSpan]::FromMinutes($cfg.idleTimeoutMinutes)) {
             Write-Host ""
             Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Idle timeout ($($cfg.idleTimeoutMinutes) min). Auto-disconnecting..." -ForegroundColor Yellow
+            break
+        }
+        
+        $activeSessionId = [WTS]::WTSGetActiveConsoleSessionId()
+        # 當返回的不是 0xFFFFFFFF 且與當下使用者的 ID 不符合時，表示有另一個使用者接管了這個本機操作畫面或切換了帳號
+        if ($activeSessionId -ne 0xFFFFFFFF -and $activeSessionId -ne $mySessionId) {
+            Write-Host ""
+            Write-Host "[$(Get-Date -Format 'HH:mm:ss')] 系統偵測到使用者已切換帳號 (Session Switch)，自動釋放 $($cfg.comPort) 並退出程式..." -ForegroundColor Magenta
             break
         }
 
