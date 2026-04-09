@@ -16,7 +16,7 @@ $defaults = @{
 
     stopBits           = "One"
     moveDirection      = "down"
-    idleTimeoutMinutes = 10
+    idleTimeoutMinutes = 30
 }
 
 # === 設定精靈 ===
