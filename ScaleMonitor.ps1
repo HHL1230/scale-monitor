@@ -1,6 +1,6 @@
 # ===========================================================
-# WeightToExcel.ps1 by Shawn.lee@sgs.com
-# Mettler Toledo Scale to Excel via COM API
+# ScaleMonitor.ps1 by Shawn.lee@sgs.com
+# Mettler Toledo Scale Monitor - Scale to Excel via COM API
 # ===========================================================
 
 # === 設定檔路徑（與腳本/exe 同目錄） ===
