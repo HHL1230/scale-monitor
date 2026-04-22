@@ -48,3 +48,6 @@ config.json
 
 # Executables
 *.exe*
+
+*.png
+*.ico
