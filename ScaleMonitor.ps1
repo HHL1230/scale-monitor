@@ -75,7 +75,6 @@ if (Test-Path $configPath) {
     $cfg = Get-Content $configPath -Raw | ConvertFrom-Json
     Write-Host ""
     Write-Host "  Config loaded: $($cfg.comPort), $($cfg.baudRate)bps" -ForegroundColor Gray
-    Write-Host "  Developed by Shawn Lee <shawn.lee@sgs.com>" -ForegroundColor DarkGray
     Write-Host ""
     Write-Host "  按 [R] 重新設定參數或等待 3 秒..." -ForegroundColor Gray
 
