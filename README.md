@@ -1,4 +1,6 @@
-# 🚀 天平數據傳輸程式 (Scale Monitor)
+# 🚀 天平數據傳輸程式 (Scale Monitor) v1.0.0
+
+[![Download v1.0.0](https://img.shields.io/badge/Download-ScaleMonitor.exe-brightgreen?style=for-the-badge&logo=windows)](https://github.com/HHL1230/scale-monitor/releases/latest/download/ScaleMonitor.exe)
 
 本程式是專為Mettler Toledo天平之RS232介面設計的傳輸工具。透過即時捕捉介面資料與 **Excel 直接寫入技術** (COM API)，將天平數值填入儲存格，同時這種方式能解決傳統模擬鍵盤輸入（模擬 HID）時「輸入法干擾」及「視窗焦點被搶走」的問題。
 

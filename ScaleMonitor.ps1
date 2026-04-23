@@ -1,6 +1,7 @@
 # ===========================================================
 # ScaleMonitor.ps1 by Shawn.lee@sgs.com
 # Mettler Toledo Scale Monitor - Scale to Excel via COM API
+# Version: 1.0.0
 # ===========================================================
 
 # === 設定檔路徑（與腳本/exe 同目錄） ===
